@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 
-import {join} from 'path';
+import { join } from 'path';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule } from '@nestjs/config';
 import { User } from './users/user.model';
@@ -14,9 +14,10 @@ import { WalletModule } from './wallet/wallet.module';
 import { Wallet } from './wallet/wallet.model';
 
 @Module({
-  imports:[
+  imports: [
     ConfigModule.forRoot({
-       envFilePath:`.${process.env.NODE_ENV}.env`
+      envFilePath: `.${process.env.NODE_ENV}.env`,
+      isGlobal: true,
     }),
     SequelizeModule.forRoot({
       dialect: 'postgres',
@@ -26,7 +27,7 @@ import { Wallet } from './wallet/wallet.model';
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
       models: [User, Post, Wallet],
-      autoLoadModels:true,
+      autoLoadModels: true,
     }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, 'static'),
@@ -36,8 +37,8 @@ import { Wallet } from './wallet/wallet.model';
     PostsModule,
     FilesModule,
     WalletModule,
-  ]
+  ],
 })
-export class AppModule{
+export class AppModule {
 
 }
