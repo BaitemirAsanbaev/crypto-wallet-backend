@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 
-import { join } from 'path';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule } from '@nestjs/config';
 import { User } from './users/user.model';
