@@ -1,4 +1,4 @@
-import { Body, HttpException, HttpStatus, Injectable, Post, UnauthorizedException } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
@@ -29,7 +29,7 @@ export class AuthService {
     }
     const hashedPassword = await bcrypt.hash(userDto.password, 5);
     const user = await this.userService.createUser({ ...userDto, password: hashedPassword });
-    const wallet = await this.walletService.createWallet(user.id);
+    await this.walletService.createWallet(user.id);
     return this.generateToken(user);
   }
 
