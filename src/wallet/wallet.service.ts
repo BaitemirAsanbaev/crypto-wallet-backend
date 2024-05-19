@@ -3,8 +3,6 @@ import { InjectModel } from '@nestjs/sequelize';
 import { Wallet } from './wallet.model';
 import { BuyCoinDto } from './dto/buy-coin.dto';
 import { JwtService } from '@nestjs/jwt';
-import { raw } from 'express';
-import { UsersService } from '../users/users.service';
 import { SwapCoinDto } from './dto/swap-coin.dto';
 
 @Injectable()
