@@ -4,8 +4,6 @@ import { HistoryService } from './history.service';
 import { JwtModule } from '@nestjs/jwt';
 import { Purchases } from './purchases.model';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { Wallet } from '../wallet/wallet.model';
-import { User } from '../users/user.model';
 import { Sales } from './sales.model';
 import { Swaps } from './swaps.model';
 
