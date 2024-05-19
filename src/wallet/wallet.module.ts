@@ -5,6 +5,7 @@ import { Wallet } from './wallet.model';
 import { User } from '../users/user.model';
 import { WalletController } from './wallet.controller';
 import { JwtModule } from '@nestjs/jwt';
+import { HistoryModule } from '../history/history.module';
 
 
 @Module({
@@ -18,6 +19,7 @@ import { JwtModule } from '@nestjs/jwt';
         },
       },
     ),
+    HistoryModule
   ],
   exports: [
     WalletService,

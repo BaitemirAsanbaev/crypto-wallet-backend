@@ -4,12 +4,14 @@ import { Wallet } from './wallet.model';
 import { BuyCoinDto } from './dto/buy-coin.dto';
 import { JwtService } from '@nestjs/jwt';
 import { SwapCoinDto } from './dto/swap-coin.dto';
+import { HistoryService } from '../history/history.service';
 
 @Injectable()
 export class WalletService {
   constructor(@InjectModel(Wallet)
               private walletRepo: typeof Wallet,
-              private jwtService: JwtService) {
+              private jwtService: JwtService,
+              private historyService: HistoryService) {
   }
 
   async createWallet(user_id: number) {
@@ -29,6 +31,7 @@ export class WalletService {
     }
     wallet.usd -= rate * quantity;
     wallet[coin] += quantity;
+    await this.historyService.addPurchase(dto, id);
     await wallet.save();
     return wallet;
   }
@@ -45,6 +48,7 @@ export class WalletService {
     }
     wallet.usd += rate * quantity;
     wallet[coin] -= quantity;
+    await this.historyService.addSales(dto, id);
     await wallet.save();
     return wallet;
   }
@@ -61,6 +65,7 @@ export class WalletService {
     }
     wallet[losingCoin] -= losingQuantity;
     wallet[gettingCoin] += gettingQuantity;
+    await this.historyService.addSwaps(dto, id);
     await wallet.save();
     return wallet;
   }

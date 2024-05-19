@@ -9,7 +9,11 @@ import { FilesModule } from './files/files.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { WalletModule } from './wallet/wallet.module';
 import { Wallet } from './wallet/wallet.model';
+import { HistoryModule } from './history/history.module';
 import * as path from 'path';
+import { Purchases } from './history/purchases.model';
+import { Sales } from './history/sales.model';
+import { Swaps } from './history/swaps.model';
 
 @Module({
   imports: [
@@ -24,7 +28,7 @@ import * as path from 'path';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      models: [User, Wallet],
+      models: [User, Wallet, Purchases, Sales, Swaps],
       autoLoadModels: true,
     }),
     ServeStaticModule.forRoot({
@@ -34,6 +38,7 @@ import * as path from 'path';
     AuthModule,
     FilesModule,
     WalletModule,
+    HistoryModule,
   ],
 })
 export class AppModule {
