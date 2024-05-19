@@ -10,6 +10,7 @@ import { FilesModule } from './files/files.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { WalletModule } from './wallet/wallet.module';
 import { Wallet } from './wallet/wallet.model';
+import * as path from 'path';
 
 @Module({
   imports: [
@@ -28,7 +29,7 @@ import { Wallet } from './wallet/wallet.model';
       autoLoadModels: true,
     }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, 'static'),
+      rootPath: path.resolve(__dirname, 'static'),
     }),
     UsersModule,
     AuthModule,

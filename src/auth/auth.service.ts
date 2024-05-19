@@ -22,13 +22,13 @@ export class AuthService {
   }
 
 
-  async register(userDto: CreateUserDto) {
+  async register(userDto: CreateUserDto, avatar:any) {
     const candidate = await this.userService.getByEmail(userDto.email);
     if (candidate) {
       throw new HttpException('User already exists', HttpStatus.BAD_REQUEST);
     }
     const hashedPassword = await bcrypt.hash(userDto.password, 5);
-    const user = await this.userService.createUser({ ...userDto, password: hashedPassword });
+    const user = await this.userService.createUser({ ...userDto, password: hashedPassword }, avatar);
     await this.walletService.createWallet(user.id);
     return this.generateToken(user);
   }

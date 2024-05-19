@@ -1,8 +1,9 @@
-import { Body, Controller, Post, UsePipes } from '@nestjs/common';
+import { Body, Controller, Post, UploadedFile, UseInterceptors, UsePipes } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { AuthService } from './auth.service';
 import { ValidationPipe } from '../pipe/validation.pipe';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('auth')
 @ApiTags('Authorization')
@@ -19,7 +20,9 @@ export class AuthController {
 
   @UsePipes(ValidationPipe)
   @Post('/register')
-  register(@Body() userDto: CreateUserDto) {
-    return this.authService.register(userDto);
+  @UseInterceptors(FileInterceptor('avatar'))
+  register(@Body() userDto: CreateUserDto,
+           @UploadedFile() avatar:any) {
+    return this.authService.register(userDto, avatar);
   }
 }
