@@ -18,7 +18,7 @@ import { Swaps } from './history/swaps.model';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: `.${process.env.NODE_ENV}.env`,
+      envFilePath: `.env`,
       isGlobal: true,
     }),
     SequelizeModule.forRoot({
