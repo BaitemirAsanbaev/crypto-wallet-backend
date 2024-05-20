@@ -23,6 +23,7 @@ import { Swaps } from './history/swaps.model';
     }),
     SequelizeModule.forRoot({
       dialect: 'postgres',
+      protocol: 'postgres',
       host: process.env.POSTGRES_HOST,
       port: Number(process.env.POSTGRES_PORT),
       username: process.env.POSTGRES_USER,
@@ -30,6 +31,12 @@ import { Swaps } from './history/swaps.model';
       database: process.env.POSTGRES_DB,
       models: [User, Wallet, Purchases, Sales, Swaps],
       autoLoadModels: true,
+      dialectOptions: {
+        ssl: {
+          require: process.env.POSTGRES_SSL === 'true',
+          rejectUnauthorized: false, // Adjust based on your security requirements
+        },
+      },
     }),
     ServeStaticModule.forRoot({
       rootPath: path.resolve(__dirname, 'static'),
