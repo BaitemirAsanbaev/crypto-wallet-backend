@@ -12,9 +12,14 @@ async function start(){
     .setVersion("1.0.0")
     .addTag("NEST")
     .build();
-
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/api/swagger', app, document)
+
+  app.enableCors({
+    origin: 'http://localhost:5173', // Allow only this origin
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+  });
   await app.listen(PORT, ()=>{
     console.log('started at port: ' + PORT);
   })
