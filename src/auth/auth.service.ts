@@ -18,7 +18,6 @@ export class AuthService {
 
   async login(userDto: LoginDto) {
     const user = await this.validateUser(userDto);
-    ;
     return this.generateToken(user);
 
   }
