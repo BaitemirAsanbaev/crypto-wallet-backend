@@ -31,12 +31,6 @@ import { Swaps } from './history/swaps.model';
       database: process.env.POSTGRES_DB,
       models: [User, Wallet, Purchases, Sales, Swaps],
       autoLoadModels: true,
-      dialectOptions: {
-        ssl: {
-          require: process.env.POSTGRES_SSL === 'true',
-          rejectUnauthorized: false, // Adjust based on your security requirements
-        },
-      },
     }),
     ServeStaticModule.forRoot({
       rootPath: path.resolve(__dirname, 'static'),

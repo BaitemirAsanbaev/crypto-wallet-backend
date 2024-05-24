@@ -17,8 +17,8 @@ export class AuthService {
   }
 
   async login(userDto: LoginDto) {
-    const user = await this.userService.getByEmail(userDto.email);
-    await this.validateUser(user);
+    const user = await this.validateUser(userDto);
+    ;
     return this.generateToken(user);
 
   }
@@ -42,7 +42,7 @@ export class AuthService {
     };
   }
 
-  private async validateUser(userDto: CreateUserDto) {
+  private async validateUser(userDto: LoginDto) {
     const user = await this.userService.getByEmail(userDto.email);
     if (!user) {
       throw new UnauthorizedException({ message: 'Wrong email' });
