@@ -5,6 +5,7 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 import { User } from '../users/user.model';
 import { WalletService } from '../wallet/wallet.service';
+import { LoginDto } from '../users/dto/login.dto';
 
 @Injectable()
 export class AuthService {
@@ -15,8 +16,9 @@ export class AuthService {
     private walletService: WalletService) {
   }
 
-  async login(userDto: CreateUserDto) {
-    const user = await this.validateUser(userDto);
+  async login(userDto: LoginDto) {
+    const user = await this.userService.getByEmail(userDto.email);
+    await this.validateUser(user);
     return this.generateToken(user);
 
   }
