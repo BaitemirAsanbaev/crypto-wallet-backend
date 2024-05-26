@@ -62,4 +62,9 @@ export class User extends Model<User, UserCreationAttribute> {
   @HasOne(()=>Wallet)
   wallet: Wallet[];
 
+  toJSON() {
+    const attributes = { ...this.get() };
+    delete attributes.wallet;
+    return attributes;
+  }
 }

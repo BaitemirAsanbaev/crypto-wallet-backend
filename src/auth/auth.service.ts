@@ -18,8 +18,9 @@ export class AuthService {
 
   async login(userDto: LoginDto) {
     const user = await this.validateUser(userDto);
+    const wallet = user.wallet;
     const { token } = await this.generateToken(user);
-    return { token, user };
+    return { token, user, wallet };
 
   }
 
@@ -32,8 +33,8 @@ export class AuthService {
     const hashedPassword = await bcrypt.hash(userDto.password, 5);
     const user = await this.userService.createUser({ ...userDto, password: hashedPassword }, avatar);
     const { token } = await this.generateToken(user)
-    await this.walletService.createWallet(user.id);
-    return { token, user};
+    const wallet = await this.walletService.createWallet(user.id);
+    return { token, user, wallet};
   }
 
   private async generateToken(user: User) {
