@@ -16,7 +16,7 @@ async function start(){
   SwaggerModule.setup('/api/swagger', app, document)
 
   app.enableCors({
-    origin: 'http://localhost:5173', // Allow only this origin
+    origin: ['http://localhost:3000', 'http://localhost:5173', 'https://crypto-wallet-frontend-three.vercel.app/'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
